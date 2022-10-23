@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'todo:login' %}" method="post">
+            {% csrf_token %}
+            <ul type="none">
+                <li>
+                    <label for="username">Username: </label>
+                    <input type="text" name="username" placeholder="Username">
+                </li>
+                <li>
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" placeholder="Password">
+                </li>
+            </ul>
+            <input type="submit" value="Log in"> 
+        </form>
+        <br>
+        <a href="{% url 'todo:home' %}">Go back</a>
+    </body>
+</html>
