@@ -3,54 +3,55 @@
 {% block body %}
     
     {% if current_user %}
-    <!-- <a href="{% url 'todo:logout' %}">Logout</a>
-    <br> -->
-    <a href="{% url 'todo:profile' %}">My Profile</a>
+    <a href="{% url 'todo:profile' %}" class="btn btn-outline-primary">My Profile</a>
 
-        <h1>TODOs</h1>
-        <!-- NOT COMPLETED TODOS -->
-        <ul>
-            {% for todo in todos %}
-                {% if not todo.completed %}
-                    <li>
-                        <a href="{% url 'todo:check' todo.id %}"><span style="color: green;">Done</span></a>
-                        <a href="{% url 'todo:delete' todo.id %}"><span style="color: red;">Delete</span></a>
+    <form action="{% url 'todo:add' %}" method="post" class="d-flex justify-content-center mt-4">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.text }}
+        </div>
+        <input type="submit" value="Add" class="btn btn-primary mx-2">
+    </form>
+
+
+        <div class="container w-50 h-100 p-0 m-5">
+            <!-- NOT COMPLETED TODOS -->
+            <h5>To do</h5>
+            <ul class="list-group list-group-flush">
+                {% for todo in todos_not_completed %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ todo }}
+                        <div class="">
+                            <a href="{% url 'todo:check' todo.id %}" class="btn btn-sm btn-success" style="color: white; text-decoration: none;">Done</a>
+                            <a href="{% url 'todo:delete' todo.id %}" class="btn btn-sm btn-danger" style="color: white; text-decoration: none;">Delete</a>
+                        </div>
                     </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks</li>
-            {% endfor %}
-        </ul>
-
-        <!-- COMPLETED TODOS -->
-        <h3>Completed</h3>
-        <ul>
-            {% for todo in todos %}
-                {% if todo.completed %}
-                    <li>
-                        <a href="{% url 'todo:uncheck' todo.id %}"><span style="color: green;">Unone</span></a>
-                        <a href="{% url 'todo:delete' todo.id %}"><span style="color: red;">Delete</span></a>
+                {% empty %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="color: #8b8b8b;">No tasks</li>
+                {% endfor %}
+            </ul>
+    
+            <!-- COMPLETED TODOS -->
+            <h5 class="mt-5">Completed</h5>
+            <ul class="list-group list-group-flush">
+                {% for todo in todos_completed %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ todo }}
+                        <div class="">
+                            <a href="{% url 'todo:uncheck' todo.id %}" class="btn btn-sm btn-success" style="color: white; text-decoration: none;">Undone</a>
+                            <a href="{% url 'todo:delete' todo.id %}" class="btn btn-sm btn-danger" style="color: white; text-decoration: none;">Delete</a>
+                        </div>
                     </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks</li>
-            {% endfor %}
-        </ul>
-
-        <form action="{% url 'todo:add' %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="add">
-        </form>
+                {% empty %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="color: #8b8b8b;">No tasks</li>
+                {% endfor %}
+            </ul>
+        </div>
     
     {% else %}
-        {% if message %}
-            <div>{{ message }}</div>
-        {% endif %}
-        <a href="{% url 'todo:signup' %}">Sign up</a>
-        <br>
-        <a href="{% url 'todo:login' %}">Log in</a>
+        <div class="container-fluid d-flex flex-column justify-content-center align-items-center m-0 p-0">
+            <a href="{% url 'todo:login' %}" class="btn btn-primary btn-lg m-2 w-25">Log in</a>
+            <a href="{% url 'todo:signup' %}" class="btn btn-outline-primary btn-lg m-2 w-25">Sign up</a>
+        </div>
     {% endif %}
 {% endblock %}

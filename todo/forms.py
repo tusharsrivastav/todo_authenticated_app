@@ -1,9 +1,20 @@
+from tkinter.ttk import Style
 from django import forms
 from django.forms import ModelForm
 from .models import *
 
-class NewTodoForm(forms.Form):
-    todo = forms.CharField(label="New todo")
+class NewTodoForm(ModelForm):    
+    class Meta:
+        model = Todo
+        fields = ('text',)
+        widgets = {
+            'text': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': "width: 300px;",
+                'placeholder': "Add a new todo",
+            })
+        }
+        
 
 class UserForm(ModelForm):
     class Meta:

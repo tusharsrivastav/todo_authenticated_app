@@ -25,10 +25,12 @@ def index(request, auth=False):
 
     current_user = get_current_user(request)
 
-    todos = Todo.objects.filter(user=current_user)
+    todos_completed = Todo.objects.filter(user=current_user, completed=True)
+    todos_not_completed = Todo.objects.filter(user=current_user, completed=False)
 
     return render(request, "todo/index.html", {
-        "todos": todos,
+        "todos_completed": todos_completed,
+        "todos_not_completed": todos_not_completed,
         "form": NewTodoForm(),
         "current_user": current_user,
     })
@@ -95,7 +97,7 @@ def add(request,):
         current_user = get_current_user(request)
 
         if form.is_valid():
-            todo = form.cleaned_data["todo"]
+            todo = form.cleaned_data["text"]
 
             newtodo = Todo(text=todo, completed=False, user=current_user)
             newtodo.save()

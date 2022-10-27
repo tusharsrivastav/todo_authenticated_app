@@ -3,16 +3,28 @@
 {% block body %}
     
     {% if current_user %}
-        <a href="{% url 'todo:home' %}">Go Home</a>
+        <a href="{% url 'todo:home' %}" class="btn btn-outline-primary">Go Home</a>
 
-        <h1>Profile</h1>
-        <ul>
-                <li>Full Name: {{ current_user.first_name }} {{ current_user.last_name }}</li>
-                <li>Username: {{ current_user.username }}</li>
-                <li>Email: {{ current_user.email }}</li>
+        <h3 class="mt-5 mb-3">Profile</h3>
+        <ul class="list-group">
+                <li class="list-group-item border-0" style="font-size: 20px;">
+                    <span style="color: #757575; font-size: 16px;">Full Name</span>
+                    <br>
+                    {{ current_user.first_name }} {{ current_user.last_name }}
+                </li>
+                <li class="list-group-item border-0" style="font-size: 20px;">
+                    <span style="color: #757575; font-size: 16px;">Username</span>
+                    <br>
+                    {{ current_user.username }}
+                </li>
+                <li class="list-group-item border-0" style="font-size: 20px;">
+                    <span style="color: #757575; font-size: 16px;">E-mail</span>
+                    <br>
+                    {{ current_user.email }}
+                </li>
         </ul>
 
-        <a href="{% url 'todo:logout' %}">Logout</a>
+        <a href="{% url 'todo:logout' %}" class="btn btn-outline-danger mt-5">Logout</a>
     {% endif %}
 
 {% endblock %}
