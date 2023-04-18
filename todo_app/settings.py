@@ -29,6 +29,14 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-fa5a.up.railway.app'
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'https://web-production-fa5a.up.railway.app',
+]
+
 
 # Application definition
 
