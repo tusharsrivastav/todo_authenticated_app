@@ -1,4 +1,2 @@
 # todo_authenticated_app
-A todo app with authentication system using Django
-
-Find the app here: https://tushartodoapp.herokuapp.com/
+A todo web application with user authentication
