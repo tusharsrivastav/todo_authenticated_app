@@ -21,21 +21,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 import os
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-5q#=mjw$+z!_fix@@@(eka6-t!+sovs)6c%y%^eo)k)@^-gl_-')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-5q#=mjw$+z!_fix@@@(eka6-t!+sovs)6c%y%^eo)k)@^-gl_-')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.getenv('DEBUG') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
-ALLOWED_HOSTS = ['*']
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://todoauthenticatedapp-production.up.railway.app',
+# ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://todoauthenticatedapp-production.up.railway.app',
-]
-
-CORS_ORIGIN_WHITELIST = [
-    'https://todoauthenticatedapp-production.up.railway.app',
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'https://todoauthenticatedapp-production.up.railway.app',
+# ]
 
 
 # Application definition
@@ -138,9 +142,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ## HEROKU SETTINGS
 
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
